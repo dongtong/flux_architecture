@@ -1,0 +1,6 @@
+module.exports = {
+  'ADD_ITEM': 'ADD_ITEM',
+  'REMOVE_ITEM': 'REMOVE_ITEM',
+  'INCREASE_NUM': 'INCREASE_NUM',
+  'DECREASE_NUM': 'DECREASE_NUM'
+};

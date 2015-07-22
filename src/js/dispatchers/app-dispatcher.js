@@ -1,8 +1,9 @@
 var Dispatcher = require('./dispatcher.js');
-var Merge = require('react/lib/merge');
+var merge = require('merge');
 
-var AppDispatcher = Merge(Dispatcher.prototype, {
+var AppDispatcher = merge(Dispatcher.prototype, {
 	handleViewAction: function(action){
+		console.log('handleViewAction: ', action);
 		this.dispatch({
 			source: 'VIEW_ACTION',
 			action: action

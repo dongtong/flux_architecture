@@ -1,5 +1,5 @@
 var Promise = require('es6-promise').Promise;
-var Merge = require('react/lib/merge');
+var merge = require('merge');
 
 var _callbacks = [],
      _promises = [];
@@ -28,7 +28,7 @@ var _clearPromises = function(){
 };
 
 var Dispatcher = function(){};
-Dispatcher.prototype = Merge(Dispatcher.prototype, {
+Dispatcher.prototype = merge(Dispatcher.prototype, {
 	
 	/**
 	* Register a store's callback for action invocation
