@@ -20992,10 +20992,13 @@ module.exports = App;
 
 },{"../actions/actions.js":159,"react":158}],161:[function(require,module,exports){
 module.exports = {
-  'ADD_ITEM': 'ADD_ITEM',
-  'REMOVE_ITEM': 'REMOVE_ITEM',
-  'INCREASE_NUM': 'INCREASE_NUM',
-  'DECREASE_NUM': 'DECREASE_NUM'
+  ADD_ITEM: 'ADD_ITEM',
+  REMOVE_ITEM: 'REMOVE_ITEM',
+  INCREASE_NUM: 'INCREASE_NUM',
+  DECREASE_NUM: 'DECREASE_NUM',
+  EVENTS: {
+  	CHANGE_EVENT: 'change'
+  }
 };
 
 },{}],162:[function(require,module,exports){
