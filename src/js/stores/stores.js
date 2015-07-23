@@ -18,11 +18,11 @@ function _removeItem(index) {
 	_cartItems.splice(index, 1);
 }
 
-function _increaseItem(index) {
+function _increaseNum(index) {
   _cartItems[index].count++;
 }
 
-function _decreaseItem(index) {
+function _decreaseNum(index) {
 	if(_cartItems[index].count - 1) {
 		_cartItems[index].count--;
 	}else{
@@ -38,7 +38,7 @@ function _addItem(item) {
 	}else{
 		_cartItems.forEach(function(cartItem, index){
       if(cartItem.id == item.id) {
-      	_increaseItem(index);
+      	_increaseNum(index);
       }
 		});
 	}
@@ -63,7 +63,7 @@ var AppStore = merge(EventEmitter.prototype, {
 
   getItemList: function() {
   	return _itemList;
-  }
+  },
 
   dispatcherIndex:AppDispatcher.register(function(payload){
     var action = payload.action;
@@ -74,17 +74,18 @@ var AppStore = merge(EventEmitter.prototype, {
     	case Constants.REMOVE_ITEM:
     	  _removeItem(payload.action.index);
     	  break;
-    	case Constants.INCREASE_ITEM:
-    	  _increaseItem(payload.action.index);
+    	case Constants.INCREASE_NUM:
+    	  _increaseNum(payload.action.index);
     	  break;
-    	case Constants.DECREASE_ITEM:
-    	  _decreaseItem(payload.action.index);
+    	case Constants.DECREASE_NUM:
+    	  _decreaseNum(payload.action.index);
     	  break;
     }
     AppStore.emitChange();
 
     return true;
-  });
+  })
+
 });
 
-moduel.exports = AppStore;
+module.exports = AppStore;
