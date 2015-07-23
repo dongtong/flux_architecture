@@ -1,6 +1,6 @@
-# Simple flux application architecture step by step
+## Simple flux application architecture step by step
 
-##Prerequisite
+###Prerequisite
 
 - Node
 - gulp
@@ -12,7 +12,7 @@
 - merge
 - httpster
 
-## Getting started
+### Getting started
 
 1. Open your terminal and install as following:
 
