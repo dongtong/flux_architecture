@@ -5,11 +5,19 @@ var EventEmitter = require('events').EventEmitter; //from node lib
 
 var changeEvent = Constants.EVENTS.CHANGE_EVENT;
 
-var _itemList = [
-  {id: 1, title: 'Item #1', cost: 10},
-  {id: 2, title: 'Item #2', cost: 20},
-  {id: 3, title: 'Item #3', cost: 30}
-];
+// Dummy data
+// These data should request from server side
+var _itemList = [];
+for(var i = 1; i <= 9; i++) {
+  _itemList.push({
+    'id': 'product' + i,
+    'title': 'Product #' + i,
+    'summary': 'This is awesome product #' + i,
+    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, commodi.',
+    'img': '/assets/product.png',
+    'cost': i
+  });
+}
 
 var _cartItems = [];
 

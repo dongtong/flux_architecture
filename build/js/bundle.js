@@ -21275,29 +21275,8 @@ module.exports = AppAction;
 
 },{"../constants/constants.js":168,"../dispatchers/app-dispatcher.js":169}],161:[function(require,module,exports){
 var React = require('react');
-var AppActions = require('../actions/actions.js');
-
-var AddToCart = React.createClass({displayName: "AddToCart",
-
-	handleClick: function(){
-    AppActions.addItem(this.props.item);
-	},
-
-	render: function(){
-		return (
-			React.createElement("button", {className: "btn btn-sm btn-primary", 
-			        onClick: this.handleClick}, "添加")
-		);
-	}
-
-});
-
-module.exports = AddToCart;	
-
-},{"../actions/actions.js":160,"react":159}],162:[function(require,module,exports){
-var React = require('react');
-var ItemList = require('../components/item_list.js');
-var Cart = require('../components/cart.js');
+var ItemList = require('./category/item_list.js');
+var Cart = require('./cart/cart.js');
 
 var App = React.createClass({displayName: "App",
 
@@ -21317,12 +21296,12 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;	
 
-},{"../components/cart.js":163,"../components/item_list.js":166,"react":159}],163:[function(require,module,exports){
+},{"./cart/cart.js":162,"./category/item_list.js":167,"react":159}],162:[function(require,module,exports){
 var React = require('react');
-var Store = require('../stores/stores.js');
-var RemoveFromCart = require('../components/remove_from_cart.js');
-var IncreaseCount = require('../components/increase_count.js');
-var DecreaseCount = require('../components/decrease_count.js');
+var Store = require('../../stores/stores.js');
+var RemoveFromCart = require('./remove_from_cart.js');
+var IncreaseCount = require('./increase_count.js');
+var DecreaseCount = require('./decrease_count.js');
 
 //private methods
 function _getCartItems() {
@@ -21338,6 +21317,10 @@ var Cart = React.createClass({displayName: "Cart",
 	componentWillMount: function() {
     Store.addChangeEventListener(this._onChange);
 	},
+
+  componentWillUnmount: function(){
+    Store.removeChangeEventListener(this._onChange);
+  },
 
   _onChange: function(){
     this.setState(_getCartItems());
@@ -21391,9 +21374,9 @@ var Cart = React.createClass({displayName: "Cart",
 
 module.exports = Cart;	
 
-},{"../components/decrease_count.js":164,"../components/increase_count.js":165,"../components/remove_from_cart.js":167,"../stores/stores.js":172,"react":159}],164:[function(require,module,exports){
+},{"../../stores/stores.js":172,"./decrease_count.js":163,"./increase_count.js":164,"./remove_from_cart.js":165,"react":159}],163:[function(require,module,exports){
 var React = require('react');
-var AppActions = require('../actions/actions.js');
+var AppActions = require('../../actions/actions.js');
 
 var DecreaseCount = React.createClass({displayName: "DecreaseCount",
 
@@ -21412,9 +21395,9 @@ var DecreaseCount = React.createClass({displayName: "DecreaseCount",
 
 module.exports = DecreaseCount;	
 
-},{"../actions/actions.js":160,"react":159}],165:[function(require,module,exports){
+},{"../../actions/actions.js":160,"react":159}],164:[function(require,module,exports){
 var React = require('react');
-var AppActions = require('../actions/actions.js');
+var AppActions = require('../../actions/actions.js');
 
 var IncreaseCount = React.createClass({displayName: "IncreaseCount",
 
@@ -21433,10 +21416,52 @@ var IncreaseCount = React.createClass({displayName: "IncreaseCount",
 
 module.exports = IncreaseCount;	
 
-},{"../actions/actions.js":160,"react":159}],166:[function(require,module,exports){
+},{"../../actions/actions.js":160,"react":159}],165:[function(require,module,exports){
 var React = require('react');
-var Store = require('../stores/stores.js');
-var AddToCart = require('../components/add_to_cart.js');
+var AppActions = require('../../actions/actions.js');
+
+var RemoveFromCart = React.createClass({displayName: "RemoveFromCart",
+
+	handleClick: function(){
+    AppActions.removeItem(this.props.index);
+	},
+
+	render: function(){
+		return (
+			React.createElement("button", {className: "btn btn-sm btn-danger", 
+			        onClick: this.handleClick}, "移除")
+		);
+	}
+
+});
+
+module.exports = RemoveFromCart;	
+
+},{"../../actions/actions.js":160,"react":159}],166:[function(require,module,exports){
+var React = require('react');
+var AppActions = require('../../actions/actions.js');
+
+var AddToCart = React.createClass({displayName: "AddToCart",
+
+	handleClick: function(){
+    AppActions.addItem(this.props.item);
+	},
+
+	render: function(){
+		return (
+			React.createElement("button", {className: "btn btn-sm btn-primary", 
+			        onClick: this.handleClick}, "添加")
+		);
+	}
+
+});
+
+module.exports = AddToCart;	
+
+},{"../../actions/actions.js":160,"react":159}],167:[function(require,module,exports){
+var React = require('react');
+var Store = require('../../stores/stores.js');
+var AddToCart = require('./add_to_cart.js');
 
 //private methods
 function _getItemList() {
@@ -21471,28 +21496,7 @@ var ItemList = React.createClass({displayName: "ItemList",
 
 module.exports = ItemList;	
 
-},{"../components/add_to_cart.js":161,"../stores/stores.js":172,"react":159}],167:[function(require,module,exports){
-var React = require('react');
-var AppActions = require('../actions/actions.js');
-
-var RemoveFromCart = React.createClass({displayName: "RemoveFromCart",
-
-	handleClick: function(){
-    AppActions.removeItem(this.props.index);
-	},
-
-	render: function(){
-		return (
-			React.createElement("button", {className: "btn btn-sm btn-danger", 
-			        onClick: this.handleClick}, "移除")
-		);
-	}
-
-});
-
-module.exports = RemoveFromCart;	
-
-},{"../actions/actions.js":160,"react":159}],168:[function(require,module,exports){
+},{"../../stores/stores.js":172,"./add_to_cart.js":166,"react":159}],168:[function(require,module,exports){
 module.exports = {
   ADD_ITEM: 'ADD_ITEM',
   REMOVE_ITEM: 'REMOVE_ITEM',
@@ -21584,7 +21588,7 @@ var React = require('react');
 
 React.render(React.createElement(App, null), document.getElementById('main'));
 
-},{"./components/app":162,"react":159}],172:[function(require,module,exports){
+},{"./components/app":161,"react":159}],172:[function(require,module,exports){
 var AppDispatcher = require('../dispatchers/app-dispatcher.js');
 var Constants = require('../constants/constants.js');
 var merge = require('merge');
@@ -21592,11 +21596,19 @@ var EventEmitter = require('events').EventEmitter; //from node lib
 
 var changeEvent = Constants.EVENTS.CHANGE_EVENT;
 
-var _itemList = [
-  {id: 1, title: 'Item #1', cost: 10},
-  {id: 2, title: 'Item #2', cost: 20},
-  {id: 3, title: 'Item #3', cost: 30}
-];
+// Dummy data
+// These data should request from server side
+var _itemList = [];
+for(var i = 1; i <= 9; i++) {
+  _itemList.push({
+    'id': 'product' + i,
+    'title': 'Product #' + i,
+    'summary': 'This is awesome product #' + i,
+    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, commodi.',
+    'img': '/assets/product.png',
+    'cost': i
+  });
+}
 
 var _cartItems = [];
 
