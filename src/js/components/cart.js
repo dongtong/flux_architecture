@@ -19,6 +19,10 @@ var Cart = React.createClass({
     Store.addChangeEventListener(this._onChange);
 	},
 
+  componentWillUnmount: function(){
+    Store.removeChangeEventListener(this._onChange);
+  },
+
   _onChange: function(){
     this.setState(_getCartItems());
   },
