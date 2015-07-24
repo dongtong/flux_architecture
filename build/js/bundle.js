@@ -23841,6 +23841,7 @@ var Store = require('../../stores/stores.js');
 var RemoveFromCart = require('./remove_from_cart.js');
 var IncreaseCount = require('./increase_count.js');
 var DecreaseCount = require('./decrease_count.js');
+var CartMixin = require('../../mixins/cart_mixin.js');
 
 //private methods
 function _getCartItems() {
@@ -23849,22 +23850,7 @@ function _getCartItems() {
 
 var Cart = React.createClass({displayName: "Cart",
 
-	getInitialState: function(){
-    return _getCartItems();
-	},
-
-	componentWillMount: function() {
-    Store.addChangeEventListener(this._onChange);
-	},
-
-  componentWillUnmount: function(){
-    Store.removeChangeEventListener(this._onChange);
-  },
-
-  _onChange: function(){
-    this.setState(_getCartItems());
-  },
-
+  mixins: [CartMixin(_getCartItems)],
 	render: function(){
     console.log('cart....')
 		var totalPrice = 0;
@@ -23914,7 +23900,7 @@ var Cart = React.createClass({displayName: "Cart",
 
 module.exports = Cart;	
 
-},{"../../stores/stores.js":208,"./decrease_count.js":195,"./increase_count.js":196,"./remove_from_cart.js":197,"react":191}],195:[function(require,module,exports){
+},{"../../mixins/cart_mixin.js":208,"../../stores/stores.js":209,"./decrease_count.js":195,"./increase_count.js":196,"./remove_from_cart.js":197,"react":191}],195:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../../actions/actions.js');
 
@@ -24036,7 +24022,7 @@ var ItemList = React.createClass({displayName: "ItemList",
 
 module.exports = ItemList;	
 
-},{"../../stores/stores.js":208,"./add_to_cart.js":198,"react":191}],200:[function(require,module,exports){
+},{"../../stores/stores.js":209,"./add_to_cart.js":198,"react":191}],200:[function(require,module,exports){
 //The cart info in page header
 var React = require('react');
 var Link = require('react-router-component').Link;
@@ -24201,6 +24187,33 @@ var React = require('react');
 React.render(React.createElement(App, null), document.getElementById('main'));
 
 },{"./components/app":193,"react":191}],208:[function(require,module,exports){
+var React = require('react');
+var Store = require('../stores/stores.js');
+
+var CartMixin = function(callback) {
+	return {
+    getInitialState: function(){
+      return callback();
+	  },
+
+	  componentWillMount: function() {
+      Store.addChangeEventListener(this._onChange);
+	  },
+
+    componentWillUnmount: function(){
+      Store.removeChangeEventListener(this._onChange);
+    },
+
+    _onChange: function(){
+      this.setState(callback());
+    }
+	};
+}
+
+module.exports = CartMixin;
+
+
+},{"../stores/stores.js":209,"react":191}],209:[function(require,module,exports){
 var AppDispatcher = require('../dispatchers/app-dispatcher.js');
 var Constants = require('../constants/constants.js');
 var merge = require('merge');

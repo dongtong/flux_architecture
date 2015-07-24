@@ -3,6 +3,7 @@ var Store = require('../../stores/stores.js');
 var RemoveFromCart = require('./remove_from_cart.js');
 var IncreaseCount = require('./increase_count.js');
 var DecreaseCount = require('./decrease_count.js');
+var CartMixin = require('../../mixins/cart_mixin.js');
 
 //private methods
 function _getCartItems() {
@@ -11,22 +12,7 @@ function _getCartItems() {
 
 var Cart = React.createClass({
 
-	getInitialState: function(){
-    return _getCartItems();
-	},
-
-	componentWillMount: function() {
-    Store.addChangeEventListener(this._onChange);
-	},
-
-  componentWillUnmount: function(){
-    Store.removeChangeEventListener(this._onChange);
-  },
-
-  _onChange: function(){
-    this.setState(_getCartItems());
-  },
-
+  mixins: [CartMixin(_getCartItems)],
 	render: function(){
     console.log('cart....')
 		var totalPrice = 0;
