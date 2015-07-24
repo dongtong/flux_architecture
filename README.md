@@ -16,7 +16,7 @@
 
 1. Open your terminal and install as following:
 
-    $ sudo npm install gulp gulp-browserify gulp-concat react reactify es6-promise merge httpster
+    $ sudo npm install gulp gulp-browserify gulp-concat react reactify es6-promise merge httpster react-router-component
 
 2. Run the following commands step by step
 
