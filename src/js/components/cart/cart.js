@@ -28,6 +28,7 @@ var Cart = React.createClass({
   },
 
 	render: function(){
+    console.log('cart....')
 		var totalPrice = 0;
 	  var items = this.state.items.map(function(item, index){
 	  	var itemTotalPrice = item.cost * item.count;
